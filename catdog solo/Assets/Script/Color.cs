@@ -27,7 +27,7 @@ public class Color : MonoBehaviour {
 
 				is_Black(); // 색상 변환 이후 검은색이 되었는지 확인
 							//transform.GetComponent<Renderer>().material.color = new Vector4(other.transform.GetComponent<Renderer>().material.color.r, other.transform.GetComponent<Renderer>().material.color.g, other.transform.GetComponent<Renderer>().material.color.b, 1.0f);
-				other.transform.GetComponent<Renderer>().material.color = UnityEngine.Color.yellow; //부딪힌 물체 색상 하얀색으로
+				other.transform.GetComponent<Renderer>().material.color = UnityEngine.Color.white;	//new UnityEngine.Color(1.0f, 1.0f, 0.0f, 1.0f); //부딪힌 물체 색상 하얀색으로
 				i = 1.0f;
 			}
 			
@@ -46,13 +46,13 @@ public class Color : MonoBehaviour {
 
 		float k = RtoK(r, g, b);
 		float ok = RtoK(or, og, ob);
-
+		
 		float c = RtoC(k, r);
 		float oc = RtoC(ok, or);
 
 		float m = RtoM(k, g);
 		float om = RtoM(ok, og);
-
+		
 		float y = RtoY(k, b);
 		float oy = RtoY(ok, ob);
 
@@ -60,7 +60,7 @@ public class Color : MonoBehaviour {
 		float nc = c+oc - c*oc;
 		float nm = m+om - m*om;
 		float ny = y+oy - y*oy;
-		
+
 		transform.GetComponent<Renderer>().material.color = new UnityEngine.Color(CtoR(nk, nc), CtoG(nk, nm), CtoB(nk, ny), 1.0f); // 색상 변환 완료
 	}
 
@@ -114,8 +114,8 @@ public class Color : MonoBehaviour {
 		float g = transform.GetComponent<Renderer>().material.color.g;
 		float b = transform.GetComponent<Renderer>().material.color.b;
 
-		Debug.Log(r+" " + g + " " + b);
-		if ((r + g + b / 3) == 0)
+		
+		if (r == 0 && g == 0 && b == 0)
 		{
 			Destroy(this.gameObject);
 		}
