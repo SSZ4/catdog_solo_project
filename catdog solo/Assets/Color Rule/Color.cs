@@ -23,6 +23,8 @@ public class Color : MonoBehaviour {
 				float og = other.transform.GetComponent<Renderer>().material.color.g;
 				float ob = other.transform.GetComponent<Renderer>().material.color.b;
 
+				TileBlack(or, og, ob);
+
 				ColorLerp(or, og, ob); // 색상 혼합 시작 ~ 완료
 
 				is_Black(); // 색상 변환 이후 검은색이 되었는지 확인
@@ -46,7 +48,9 @@ public class Color : MonoBehaviour {
 
 		float k = RtoK(r, g, b);
 		float ok = RtoK(or, og, ob);
-		
+
+		Debug.Log(k + " " + ok);
+
 		float c = RtoC(k, r);
 		float oc = RtoC(ok, or);
 
@@ -87,8 +91,7 @@ public class Color : MonoBehaviour {
 	}
 
 	float RtoY(float k, float b)
-	{
-		
+	{		
 		return (1 - k - b) / (1 - k);
 	}
 
@@ -106,6 +109,14 @@ public class Color : MonoBehaviour {
 	float CtoB(float nk, float ny)
 	{
 		return (1 - ny) * (1 - nk);
+	}
+
+	void TileBlack(float or, float ob, float og)
+	{
+		if(or == 0 && og == 0 && ob == 0)
+		{
+			Destroy(this.gameObject);
+		}
 	}
 
 	void is_Black() //검은색인지 확인

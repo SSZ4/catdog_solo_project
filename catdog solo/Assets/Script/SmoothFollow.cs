@@ -44,7 +44,8 @@ public class SmoothFollow : MonoBehaviour
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
 		transform.position = target.position;
-		transform.position -= currentRotation * Vector3.forward * distance;
+		transform.position = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
+		//transform.position -= currentRotation * Vector3.forward * distance;
 
 		// Set the height of the camera
 		transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);

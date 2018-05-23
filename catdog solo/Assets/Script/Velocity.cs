@@ -2,63 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Velocity : MonoBehaviour {
 	Rigidbody rigid;
+	GameObject Shadow;
 	private Vector3 target_position;
 	float i = 0.0f;
 	// Use this for initialization
 	void Start () {
 		rigid = gameObject.GetComponent<Rigidbody>();
+		Shadow = GameObject.Find("Shadow");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		/* 언젠가 하자
-		if (Input.GetKey("d"))
-		{
-			transform.Rotate(new Vector3(0.0f, -3.0f, 0.0f), Space.Self);
-			
-			rigid.AddForce(-transform.right * rigid.velocity.x * (1 - Mathf.Sin(87 * Mathf.Deg2Rad)));
-			rigid.AddForce(-transform.forward * rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			
-			//rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, -rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			//rigid.velocity = Vector3.zero;
-			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
-		}
 
-		if (Input.GetKey("a"))
-		{
-			transform.Rotate(new Vector3(0.0f, 3.0f, 0.0f), Space.Self);
-			rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			//rigid.velocity = Vector3.zero;
-			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
-		}
-		*/
 	}
 
 	private void OnCollisionEnter(Collision other)
 	{
 		if (other.transform.tag == "Plane")
-		{
+		{		
 			if (i == 0.0f)
-			{
+			{	
+				//Debug.Log("Enter");
 				rigid.velocity = Vector3.zero;
-				target_position = gameObject.transform.localPosition + transform.right * 4f;
+				target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+				Shadow.transform.position = target_position;
 
 				//Debug.Log(transform.position.x + " " + transform.position.y + " " + transform.position.z);
 				//Debug.Log(target_position.x + " " + target_position.y + " " + target_position.z);
+			
+				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, 50.0f);
 
-				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, 75.0f);
 				i = 1.0f;
 			}
 		}
 	}
+
 	private void OnCollisionExit(Collision other)
 	{
 		i = 0.0f;
 	}
 
-
+	
 	Vector3 GetVelocity(Vector3 currentPos, Vector3 targetPos, float initialAngle)
 	{
 		float gravity = Physics.gravity.magnitude;
@@ -87,4 +75,56 @@ public class Velocity : MonoBehaviour {
 		return finalVelocity;
 	}
 
+	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 언젠가 하자
+		if (Input.GetKey("d"))
+		{
+			transform.Rotate(new Vector3(0.0f, -3.0f, 0.0f), Space.Self);
+			
+			rigid.AddForce(-transform.right * rigid.velocity.x * (1 - Mathf.Sin(87 * Mathf.Deg2Rad)));
+			rigid.AddForce(-transform.forward * rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
+			
+			//rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, -rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
+			//rigid.velocity = Vector3.zero;
+			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
+		}
+
+		if (Input.GetKey("a"))
+		{
+			transform.Rotate(new Vector3(0.0f, 3.0f, 0.0f), Space.Self);
+			rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
+			//rigid.velocity = Vector3.zero;
+			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
+		}
+*/
