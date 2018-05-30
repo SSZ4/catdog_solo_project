@@ -8,6 +8,7 @@ public class Velocity : MonoBehaviour {
 	GameObject Shadow;
 	private Vector3 target_position;
 	float i = 0.0f;
+	public UnityEngine.Color RayColor;
 	// Use this for initialization
 	void Start () {
 		rigid = gameObject.GetComponent<Rigidbody>();
@@ -16,7 +17,11 @@ public class Velocity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		RaycastHit hit;
+		if (Physics.Raycast(Shadow.transform.position, -Vector3.up, out hit, 10.0f))
+			RayColor = hit.collider.GetComponent<Renderer>().material.color;
 
+		Debug.Log(RayColor);
 	}
 
 	private void OnCollisionEnter(Collision other)
