@@ -129,8 +129,8 @@ GameObject:
   - component: {fileID: 29552759}
   - component: {fileID: 29552757}
   - component: {fileID: 29552765}
-  - component: {fileID: 29552764}
   - component: {fileID: 29552766}
+  - component: {fileID: 29552764}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Mover
@@ -149,6 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e1347fdc82bde44b45bb6857555928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RayColor: {r: 0, g: 0, b: 0, a: 0}
+  ShootAngle: 0
 --- !u!65 &29552758
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -250,7 +252,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 29552756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba89ae045018434b9245e51c6950587, type: 3}
+  m_Script: {fileID: 11500000, guid: 94ded5d16d46aff4098ac1b9074ada04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &29552765

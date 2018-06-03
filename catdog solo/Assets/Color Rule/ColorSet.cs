@@ -16,7 +16,7 @@ public class ColorSet : MonoBehaviour {
 
 	public bool IsRedSet(float or, float og, float ob)
 	{
-		if (or >= 0.75f && og <= 1.0f && og >= 0.0f && og <= 0.25f && ob >= 0.0f && ob <= 0.25f)
+		if (or >= 0.75f && or <= 1.0f && og >= 0.0f && og <= 0.25f && ob >= 0.0f && ob <= 0.25f)
 			return true;
 		else
 			return false;
@@ -24,7 +24,7 @@ public class ColorSet : MonoBehaviour {
 
 	public bool IsGreenSet(float or, float og, float ob)
 	{
-		if (or >= 0.0f && og <= 0.25f && og >= 0.75f && og <= 1.0f && ob >= 0.0f && ob <= 0.25f)
+		if (or >= 0.0f && or <= 0.25f && og >= 0.75f && og <= 1.0f && ob >= 0.0f && ob <= 0.25f)
 			return true;
 		else
 			return false;
@@ -32,7 +32,7 @@ public class ColorSet : MonoBehaviour {
 
 	public bool IsBlueSet(float or, float og, float ob)
 	{
-		if (or >= 0.0f && og <= 0.25f && og >= 0.0f && og <= 0.25f && ob >= 0.75f && ob <= 1.0f)
+		if (or >= 0.0f && or <= 0.25f && og >= 0.0f && og <= 0.25f && ob >= 0.75f && ob <= 1.0f)
 			return true;
 		else
 			return false;
@@ -40,7 +40,7 @@ public class ColorSet : MonoBehaviour {
 
 	public bool IsCyanSet(float or, float og, float ob)
 	{
-		if (or >= 0.0f && og <= 0.25f && og >= 0.75f && og <= 1.0f && ob >= 0.75f && ob <= 1.0f)
+		if (or >= 0.0f && or <= 0.25f && og >= 0.75f && og <= 1.0f && ob >= 0.75f && ob <= 1.0f)
 			return true;
 		else
 			return false;
@@ -48,7 +48,7 @@ public class ColorSet : MonoBehaviour {
 
 	public bool IsMagentaSet(float or, float og, float ob)
 	{
-		if (or >= 0.75f && og <= 1.0f && og >= 0.0f && og <= 0.25f && ob >= 0.75f && ob <= 1.0f)
+		if (or >= 0.75f && or <= 1.0f && og >= 0.0f && og <= 0.25f && ob >= 0.75f && ob <= 1.0f)
 			return true;
 		else
 			return false;
@@ -56,7 +56,7 @@ public class ColorSet : MonoBehaviour {
 
 	public bool IsYellowSet(float or, float og, float ob)
 	{
-		if (or >= 0.75f && og <= 1.0f && og >= 0.75f && og <= 1.0f && ob >= 0.0f && ob <= 0.25f)
+		if (or >= 0.75f && or <= 1.0f && og >= 0.75f && og <= 1.0f && ob >= 0.0f && ob <= 0.25f)
 			return true;
 		else
 			return false;

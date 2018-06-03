@@ -9,10 +9,15 @@ public class Velocity : MonoBehaviour {
 	private Vector3 target_position;
 	float i = 0.0f;
 	public UnityEngine.Color RayColor;
+	public float ShootAngle;
+	private ColorSet Rule;
 	// Use this for initialization
 	void Start () {
 		rigid = gameObject.GetComponent<Rigidbody>();
 		Shadow = GameObject.Find("Shadow");
+		ShootAngle = 50.0f;
+		Rule = GameObject.Find("Sphere").GetComponent<ColorSet>();
+		transform.GetComponent<Renderer>().material.color = UnityEngine.Color.white;
 	}
 	
 	// Update is called once per frame
@@ -26,6 +31,25 @@ public class Velocity : MonoBehaviour {
 
 	private void OnCollisionEnter(Collision other)
 	{
+		if (i == 0.0f)
+		{
+			transform.GetComponent<Velocity>().ShootAngle = 50.0f;
+			float or = other.transform.GetComponent<Renderer>().material.color.r;
+			float og = other.transform.GetComponent<Renderer>().material.color.g;
+			float ob = other.transform.GetComponent<Renderer>().material.color.b;
+			if (or == 0.0f && og == 0.0f && ob == 0.0f) { } // 검은색은 무시
+			else
+			{
+				if (Rule.IsRedSet(or, og, ob))
+					transform.GetComponent<Velocity>().ShootAngle = 30.0f;
+				else if (Rule.IsBlueSet(or, og, ob))
+					transform.GetComponent<Velocity>().ShootAngle = 70.0f;
+
+
+				other.transform.GetComponent<Renderer>().material.color = UnityEngine.Color.black;
+			}
+		}
+
 		if (other.transform.tag == "Plane")
 		{		
 			if (i == 0.0f)
@@ -39,11 +63,31 @@ public class Velocity : MonoBehaviour {
 				//Debug.Log(transform.position.x + " " + transform.position.y + " " + transform.position.z);
 				//Debug.Log(target_position.x + " " + target_position.y + " " + target_position.z);
 			
-				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, 50.0f);
+				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
 
 				i = 1.0f;
 			}
 		}
+
+		if (other.transform.tag == "CirclePlane")
+		{
+			if (i == 0.0f)
+			{
+				//Debug.Log("Enter");
+				rigid.velocity = Vector3.zero;
+				target_position = new Vector3(gameObject.transform.position.x + 22.8f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+				Shadow.transform.position = target_position;
+
+				//Debug.Log(transform.position.x + " " + transform.position.y + " " + transform.position.z);
+				//Debug.Log(target_position.x + " " + target_position.y + " " + target_position.z);
+
+				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+
+				i = 1.0f;
+			}
+		}
+
 	}
 
 	private void OnCollisionExit(Collision other)
