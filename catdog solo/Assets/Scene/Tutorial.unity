@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 40be242a8deb8d84b99fec8ab9ef503b,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -644,6 +645,7 @@ GameObject:
   - component: {fileID: 1443133046}
   - component: {fileID: 1443133044}
   - component: {fileID: 1443133043}
+  - component: {fileID: 1443133045}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Mover
@@ -662,6 +664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e1347fdc82bde44b45bb6857555928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RayColor: {r: 0, g: 0, b: 0, a: 0}
+  ShootAngle: 0
 --- !u!54 &1443133044
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -677,6 +681,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1443133045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1443133042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5614d3e0628f4b46bc354afb88fef47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1443133046
 BoxCollider:
   m_ObjectHideFlags: 0

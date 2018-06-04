@@ -44,7 +44,14 @@ public class SceneMover : MonoBehaviour {
 
 	{
 		Time.timeScale = 1.0f;
-		SceneManager.LoadScene("First");
+		SceneManager.LoadScene("Second");
+	}
+
+	public void SelecttoThird()
+
+	{
+		Time.timeScale = 1.0f;
+		SceneManager.LoadScene("Third");
 	}
 
 	public void GameExit()

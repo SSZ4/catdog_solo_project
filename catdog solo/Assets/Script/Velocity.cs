@@ -88,6 +88,25 @@ public class Velocity : MonoBehaviour {
 			}
 		}
 
+		if (other.transform.tag == "SquarePlane")
+		{
+			if (i == 0.0f)
+			{
+				//Debug.Log("Enter");
+				rigid.velocity = Vector3.zero;
+				target_position = new Vector3(gameObject.transform.position.x - 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+				Shadow.transform.position = target_position;
+
+				//Debug.Log(transform.position.x + " " + transform.position.y + " " + transform.position.z);
+				//Debug.Log(target_position.x + " " + target_position.y + " " + target_position.z);
+
+				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+
+				i = 1.0f;
+			}
+		}
+
 	}
 
 	private void OnCollisionExit(Collision other)

@@ -8,6 +8,7 @@ TagManager:
   - Mover
   - Dest
   - CirclePlane
+  - SquarePlane
   layers:
   - Default
   - TransparentFX
