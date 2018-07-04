@@ -9,6 +9,9 @@ TagManager:
   - Dest
   - CirclePlane
   - SquarePlane
+  - Cube
+  - StarPlane
+  - TriPlane
   layers:
   - Default
   - TransparentFX

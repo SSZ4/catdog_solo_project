@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class Button : MonoBehaviour {
 	public bool Scale;
+	public GameObject ButtonM;
+	public GameObject ButtonR;
+	public GameObject ButtonC;
+	public GameObject Buttonl;
+	public GameObject Buttonr;
 	// Use this for initialization
 	void Start () {
 		Scale = false;
+		ButtonM= GameObject.Find("Main");
+		ButtonM.SetActive(false);
+		ButtonR = GameObject.Find("ReStart");
+		ButtonR.SetActive(false);
+		ButtonC = GameObject.Find("Continue");
+		ButtonC.SetActive(false);
+
+		Buttonl = GameObject.Find("left");
+		Buttonr = GameObject.Find("right");
 	}
 	
 	// Update is called once per frame
@@ -24,31 +38,12 @@ public class Button : MonoBehaviour {
 
 	public void Continue()
 	{
-		GameObject Button = GameObject.Find("Main");
-		Vector3 pos = Button.transform.position;
-		pos.y -= 200.0f;
-		Button.transform.position = pos;
+		ButtonM.SetActive(false);
+		ButtonR.SetActive(false);
+		ButtonC.SetActive(false);
 
-		Button = GameObject.Find("ReStart");
-		pos = Button.transform.position;
-		pos.y -= 200.0f;
-		Button.transform.position = pos;
-
-		Button = GameObject.Find("Continue");
-		pos = Button.transform.position;
-		pos.y -= 200.0f;
-		Button.transform.position = pos;
-
-
-		Button = GameObject.Find("right");
-		pos = Button.transform.position;
-		pos.x -= 200.0f;
-		Button.transform.position = pos;
-
-		Button = GameObject.Find("left");
-		pos = Button.transform.position;
-		pos.x += 200.0f;
-		Button.transform.position = pos;
+		Buttonr.SetActive(true);
+		Buttonl.SetActive(true);
 
 		Time.timeScale = 1.0f;
 	}
@@ -59,32 +54,12 @@ public class Button : MonoBehaviour {
 		{
 			Time.timeScale = 0.0f;
 
-			GameObject Button = GameObject.Find("Main");
-			Vector3 pos = Button.transform.position;
-			pos.y += 200.0f;
-			Button.transform.position = pos;
+			ButtonM.SetActive(true);
+			ButtonR.SetActive(true);
+			ButtonC.SetActive(true);
 
-			Button = GameObject.Find("ReStart");
-			pos = Button.transform.position;
-			pos.y += 200.0f;
-			Button.transform.position = pos;
-
-			Button = GameObject.Find("Continue");
-			pos = Button.transform.position;
-			pos.y += 200.0f;
-			Button.transform.position = pos;
-
-
-			Button = GameObject.Find("right");
-			pos = Button.transform.position;
-			pos.x += 200.0f;
-			Button.transform.position = pos;
-
-			Button = GameObject.Find("left");
-			pos = Button.transform.position;
-			pos.x -= 200.0f;
-			Button.transform.position = pos;
-
+			Buttonl.SetActive(false);
+			Buttonr.SetActive(false);
 
 			Scale = false;
 		}

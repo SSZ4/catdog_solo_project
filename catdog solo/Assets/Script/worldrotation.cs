@@ -9,6 +9,7 @@ public class worldrotation : MonoBehaviour {
 	public bool IsPressedRight;
 	public bool IsPressedLeft;
 	public float angle;
+	public bool Reverse;
 	// Use this for initialization
 	void Start () {
 		map = GameObject.Find("World");
@@ -16,6 +17,7 @@ public class worldrotation : MonoBehaviour {
 		IsPressedRight = false;
 		IsPressedLeft = false;
 		angle = 2.0f;
+		Reverse = true;
 	}
 	
 	// Update is called once per frame
@@ -29,22 +31,34 @@ public class worldrotation : MonoBehaviour {
 	
 	public void ClickStartRight()
 	{
-		IsPressedRight = true;
+		if(Reverse)
+			IsPressedRight = true;
+		else
+			IsPressedLeft = true;
 	}
 
 	public void ClickEndRight()
 	{
-		IsPressedRight = false;
+		if (Reverse)
+			IsPressedRight = false;
+		else
+			IsPressedLeft = false;
 	}
 
 	public void ClickStartLeft()
 	{
-		IsPressedLeft = true;
+		if (Reverse)
+			IsPressedLeft = true;
+		else
+			IsPressedRight = true;
 	}
 
 	public void ClickEndLeft()
 	{
-		IsPressedLeft = false;
+		if (Reverse)
+			IsPressedLeft = false;
+		else
+			IsPressedRight = false;
 	}
 
 	public void OnClickButtonRight()

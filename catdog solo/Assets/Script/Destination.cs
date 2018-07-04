@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class Destination : MonoBehaviour {
 	// Use this for initialization
+	public GameObject ButtonM;
+	public GameObject ButtonR;
+	public GameObject Buttonl;
+	public GameObject Buttonr;
+	GameObject ui;
 	void Start () {
-		
+
+		ui = GameObject.Find("UIManager");
+		ButtonM = ui.GetComponent<Button>().ButtonM;
+		ButtonR = ui.GetComponent<Button>().ButtonR;
+
+		Buttonl = ui.GetComponent<Button>().Buttonl;
+		Buttonr = ui.GetComponent<Button>().Buttonr;
 	}
 	
 	// Update is called once per frame
@@ -23,27 +34,19 @@ public class Destination : MonoBehaviour {
 
 	public void GameEnd()
 	{
-
-		GameObject Button = GameObject.Find("Main");
-		Vector3 pos = Button.transform.position;
-		pos.y += 200.0f;
-		Button.transform.position = pos;
-
-		Button = GameObject.Find("ReStart");
-		pos = Button.transform.position;
-		pos.x += 150.0f;
-		pos.y += 200.0f;
-		Button.transform.position = pos;
-
-		Button = GameObject.Find("right");
-		pos = Button.transform.position;
+		ButtonM.SetActive(true);
+		Vector3 pos = ButtonM.transform.position;
 		pos.x += 200.0f;
-		Button.transform.position = pos;
+		ButtonM.transform.position = pos;
 
-		Button = GameObject.Find("left");
-		pos = Button.transform.position;
-		pos.x -= 200.0f;
-		Button.transform.position = pos;
+		ButtonR.SetActive(true);
+		pos = ButtonR.transform.position;
+		pos.x += 300.0f;
+		ButtonR.transform.position = pos;
+
+
+		Buttonl.SetActive(false);
+		Buttonr.SetActive(false);
 
 		Time.timeScale = 0.0f;
 	}
