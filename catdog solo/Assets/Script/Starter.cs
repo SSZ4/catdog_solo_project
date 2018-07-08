@@ -18,6 +18,7 @@ public class Starter : MonoBehaviour {
 	{
 		Time.timeScale = 1.0f;
 		GameObject Button = GameObject.Find("Help");
-		Button.transform.Translate(Vector3.up * 1000.0f);
+		Button.SetActive(false);
+		//Button.transform.Translate(Vector3.up * 1000.0f);
 	}
 }

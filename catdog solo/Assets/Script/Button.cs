@@ -10,14 +10,23 @@ public class Button : MonoBehaviour {
 	public GameObject Buttonl;
 	public GameObject Buttonr;
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		Scale = false;
-		ButtonM= GameObject.Find("Main");
-		ButtonM.SetActive(false);
-		ButtonR = GameObject.Find("ReStart");
-		ButtonR.SetActive(false);
+
+		if (null != GameObject.Find("Main"))
+		{
+			ButtonM = GameObject.Find("Main");
+			ButtonM.SetActive(false);
+		}
+		if (null != GameObject.Find("ReStart"))
+		{
+			ButtonR = GameObject.Find("ReStart");
+			ButtonR.SetActive(false);
+		}
+		if (null != GameObject.Find("Continue")) { 
 		ButtonC = GameObject.Find("Continue");
 		ButtonC.SetActive(false);
+		}
 
 		Buttonl = GameObject.Find("left");
 		Buttonr = GameObject.Find("right");

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneMover : MonoBehaviour {
 	GameObject Ball;
+	Vector3 curpos;
 	// Use this for initialization
 	void Start () {
 		Ball = GameObject.Find("Sphere");
@@ -12,7 +14,6 @@ public class SceneMover : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		TutoMove();
 		TutoMove2();
 	}
 
@@ -20,7 +21,7 @@ public class SceneMover : MonoBehaviour {
 	public void MaintoTuto()
 	{
 		Time.timeScale = 1.0f;
-		SceneManager.LoadScene("Tutorial");
+		SceneManager.LoadScene("Tutorial2");
 	}
 
 
@@ -41,17 +42,48 @@ public class SceneMover : MonoBehaviour {
 	}
 
 	public void SelecttoSecond()
-
 	{
-		Time.timeScale = 1.0f;
-		SceneManager.LoadScene("Second");
+		if (GameObject.Find("raycastui2").GetComponent<Image>().color.a == 1.0f)
+		{
+			Time.timeScale = 1.0f;
+			SceneManager.LoadScene("Second");
+		}
 	}
 
 	public void SelecttoThird()
-
 	{
-		Time.timeScale = 1.0f;
-		SceneManager.LoadScene("Third");
+		if (GameObject.Find("raycastui3").GetComponent<Image>().color.a == 1.0f)
+		{
+			Time.timeScale = 1.0f;
+			SceneManager.LoadScene("Third");
+		}
+	}
+
+	public void SelecttoFourth()
+	{
+		if (GameObject.Find("raycastui4").GetComponent<Image>().color.a == 1.0f)
+		{
+			Time.timeScale = 1.0f;
+			SceneManager.LoadScene("Fourth");
+		}
+	}
+
+	public void SelecttoFifth()
+	{
+		if (GameObject.Find("raycastui5").GetComponent<Image>().color.a == 1.0f)
+		{
+			Time.timeScale = 1.0f;
+			SceneManager.LoadScene("Fifth");
+		}
+	}	
+
+	public void SelecttoSixth()
+	{
+		if (GameObject.Find("raycastui6").GetComponent<Image>().color.a == 1.0f)
+		{
+			Time.timeScale = 1.0f;
+			SceneManager.LoadScene("Sixth");
+		}
 	}
 
 	public void GameExit()
@@ -66,18 +98,20 @@ public class SceneMover : MonoBehaviour {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
-	private void TutoMove()
+	public void TutoSelect()
 	{
-		if (SceneManager.GetActiveScene().name == "Tutorial" && Ball.transform.position.y < -10.0f)
-		{
-			SceneManager.LoadScene("Tutorial2");
-		}
+		Time.timeScale = 1.0f;
+		SceneManager.LoadScene("Select");
 	}
+
 	private void TutoMove2()
 	{
 		if (SceneManager.GetActiveScene().name == "Tutorial2" && Ball.transform.position.y < -10.0f)
 		{
-			SceneManager.LoadScene("Tutorial3");
+			Vector3 pos = GameObject.Find("tile").transform.position;
+			pos.y += 10.0f;
+			Ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			Ball.transform.position = pos;
 		}
-	}	
+	}
 }

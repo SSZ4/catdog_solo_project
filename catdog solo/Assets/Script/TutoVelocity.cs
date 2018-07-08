@@ -1,91 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-
-public class Velocity : MonoBehaviour {
-	Rigidbody rigid;
-	GameObject Shadow;
-	private Vector3 target_position;
+public class TutoVelocity : MonoBehaviour {
 	private float i = 0.0f;
-	public UnityEngine.Color RayColor;
-	public float ShootAngle;
-	private ColorSet Rule;
-	GameObject UIManager;
-	GameObject rayui;
-	GameObject raytext;
 	public float or;
 	public float og;
 	public float ob;
+	Rigidbody rigid;
+	GameObject Shadow;
+	private Vector3 target_position;
+	public float ShootAngle;
+	private ColorSet Rule;
 	public GameObject Buttonl;
 	public GameObject Buttonr;
-	private MeshRenderer Mesh;
-	//GameObject map;
+	GameObject UIManager;
 	// Use this for initialization
-	void Start () { 
+	void Start () {
 		rigid = gameObject.GetComponent<Rigidbody>();
 		Shadow = GameObject.Find("Shadow");
 		ShootAngle = 50.0f;
 		Rule = GameObject.Find("Sphere").GetComponent<ColorSet>();
 		transform.GetComponent<Renderer>().material.color = UnityEngine.Color.white;
-		rayui = GameObject.Find("raycastui");
-		raytext = GameObject.Find("raytext");
-		UIManager = GameObject.Find("UIManager");
-		//map = GameObject.Find("World");
 
-		Buttonl = UIManager.GetComponent<Button>().Buttonl;
-		Buttonr = UIManager.GetComponent<Button>().Buttonr;
-		Mesh = transform.GetComponent<MeshRenderer>();
+		Buttonl = GameObject.Find("left");
+		Buttonr = GameObject.Find("right");
+		GameObject UIManager = GameObject.Find("UIManager");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		RaycastHit hit;
-		if (Physics.Raycast(Shadow.transform.position, -Vector3.up, out hit, 10.0f))
-			RayColor = hit.collider.GetComponent<Renderer>().material.color;
-
-		rayui.GetComponent<Image>().color = RayColor;
-
-		float r = RayColor.r;
-		float g = RayColor.g;
-		float b = RayColor.b;
-
-		if (Rule.IsRedSet(r, g, b)) {
-			raytext.GetComponent<Text>().text = "Red";
-		}
-		else if (Rule.IsBlueSet(r, g, b)) {
-			raytext.GetComponent<Text>().text = "Blue";
-		}
-		else if (Rule.IsGreenSet(r, g, b)) {
-			raytext.GetComponent<Text>().text = "Green";
-		}
-		else if (Rule.IsCyanSet(r, g, b)) {
-			raytext.GetComponent<Text>().text = "Cyan";
-		}
-		else if (Rule.IsMagentaSet(r, g, b)) {
-			raytext.GetComponent<Text>().text = "Magenta";
-		}
-		else if (Rule.IsYellowSet(r, g, b)) {
-			raytext.GetComponent<Text>().text = "Yellow";
-		}
-		else if (r == 0.0f && g == 0.0f && b == 0.0f)
-		{
-			raytext.GetComponent<Text>().text = "Black";
-		}
-		else {
-			raytext.GetComponent<Text>().text = "";
-		}
-
-		//Debug.Log(RayColor);
+		
 	}
 
 	private void OnCollisionEnter(Collision other)
 	{
-
 		if (i == 0.0f)
 		{
-			transform.GetComponent<Velocity>().ShootAngle = 50.0f;
+			transform.GetComponent<TutoVelocity>().ShootAngle = 50.0f;
 			or = other.transform.GetComponent<Renderer>().material.color.r;
 			og = other.transform.GetComponent<Renderer>().material.color.g;
 			ob = other.transform.GetComponent<Renderer>().material.color.b;
@@ -98,13 +50,6 @@ public class Velocity : MonoBehaviour {
 					ShootAngle = 70.0f;
 				else if (Rule.IsGreenSet(or, og, ob))
 					LeftRightOff();
-				else if (Rule.IsCyanSet(or, og, ob))
-					SphereOff();
-				else if (Rule.IsYellowSet(or, og, ob))
-				{
-					if (UIManager.GetComponent<worldrotation>().Reverse)
-						RotReverseOn();
-				}
 
 
 
@@ -113,9 +58,9 @@ public class Velocity : MonoBehaviour {
 		}
 
 		if (other.transform.tag == "Plane")
-		{		
+		{
 			if (i == 0.0f)
-			{	
+			{
 				rigid.velocity = Vector3.zero;
 				target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
 
@@ -169,10 +114,10 @@ public class Velocity : MonoBehaviour {
 				{
 					k = Random.Range(-2, 2);
 				}
-				
+
 
 				Debug.Log(k);
-				if(k > 0)
+				if (k > 0)
 				{
 					Rotate(k);
 				}
@@ -214,7 +159,6 @@ public class Velocity : MonoBehaviour {
 		i = 0.0f;
 	}
 
-	
 	Vector3 GetVelocity(Vector3 currentPos, Vector3 targetPos, float initialAngle)
 	{
 		float gravity = Physics.gravity.magnitude;
@@ -239,7 +183,7 @@ public class Velocity : MonoBehaviour {
 		//Debug.Log(velocity);
 		//Debug.Log(finalVelocity);
 		finalVelocity = transform.InverseTransformVector(finalVelocity); // 자신의 각도 참조
-		
+
 		return finalVelocity;
 	}
 
@@ -282,100 +226,4 @@ public class Velocity : MonoBehaviour {
 		Buttonl.SetActive(true);
 		Buttonr.SetActive(true);
 	}
-
-	private void SphereOff()
-	{
-		Mesh.enabled = false;
-		Invoke("SphereOn", 1.5f);
-	}
-
-	private void SphereOn()
-	{
-		Mesh.enabled = true;
-	}
-
-	private void RotReverseOn()
-	{
-		if (UIManager.GetComponent<worldrotation>().IsPressedLeft == true)
-		{
-			UIManager.GetComponent<worldrotation>().IsPressedLeft = false;
-			UIManager.GetComponent<worldrotation>().IsPressedRight = true;
-		}
-		else if (UIManager.GetComponent<worldrotation>().IsPressedRight == true)
-		{
-			UIManager.GetComponent<worldrotation>().IsPressedRight = false;
-			UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
-		}
-
-		UIManager.GetComponent<worldrotation>().Reverse = false;
-
-		Invoke("RotReverseOff", 1.5f);
-	}
-
-	private void RotReverseOff()
-	{
-		UIManager.GetComponent<worldrotation>().Reverse = true;
-
-		if (UIManager.GetComponent<worldrotation>().IsPressedLeft == true)
-		{
-			UIManager.GetComponent<worldrotation>().IsPressedLeft = false;
-			UIManager.GetComponent<worldrotation>().IsPressedRight = true;
-			//Debug.Log("Enter");
-		}
-		else if (UIManager.GetComponent<worldrotation>().IsPressedRight == true)
-		{
-			UIManager.GetComponent<worldrotation>().IsPressedRight = false;
-			UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
-		}
-	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 언젠가 하자
-		if (Input.GetKey("d"))
-		{
-			transform.Rotate(new Vector3(0.0f, -3.0f, 0.0f), Space.Self);
-			
-			rigid.AddForce(-transform.right * rigid.velocity.x * (1 - Mathf.Sin(87 * Mathf.Deg2Rad)));
-			rigid.AddForce(-transform.forward * rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			
-			//rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, -rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			//rigid.velocity = Vector3.zero;
-			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
-		}
-
-		if (Input.GetKey("a"))
-		{
-			transform.Rotate(new Vector3(0.0f, 3.0f, 0.0f), Space.Self);
-			rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			//rigid.velocity = Vector3.zero;
-			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
-		}
-*/

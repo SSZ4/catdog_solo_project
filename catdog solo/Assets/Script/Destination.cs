@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Destination : MonoBehaviour {
 	// Use this for initialization
@@ -29,6 +30,19 @@ public class Destination : MonoBehaviour {
 		if (Time.timeScale != 0.0f && other.transform.tag == "Dest")
 		{
 			GameEnd();
+
+			if (SceneManager.GetActiveScene().name == "First")
+				PlayerPrefs.SetInt("second", 1);
+			else if (SceneManager.GetActiveScene().name == "Second")
+				PlayerPrefs.SetInt("third", 1);
+			else if (SceneManager.GetActiveScene().name == "Third")
+				PlayerPrefs.SetInt("fourth", 1);
+			else if (SceneManager.GetActiveScene().name == "Fourth")
+				PlayerPrefs.SetInt("fifth", 1);
+			else if (SceneManager.GetActiveScene().name == "Fifth")
+				PlayerPrefs.SetInt("sixth", 1);
+
+			PlayerPrefs.Save();
 		}
 	}
 
