@@ -1577,6 +1577,11 @@ Prefab:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224888579554328010, guid: 4beea5e421a03574ca319f8c39aa1704,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4beea5e421a03574ca319f8c39aa1704, type: 2}
   m_IsPrefabParent: 0

@@ -11,7 +11,6 @@ public class Area : MonoBehaviour {
 		for (int i = 0; i < 7; i++) {
 			ChildHexagon[i] = this.transform.GetChild(i).gameObject;
 		}
-
 		TileColor = new UnityEngine.Color[7];
 		
 		TileColor[0] = UnityEngine.Color.black;
