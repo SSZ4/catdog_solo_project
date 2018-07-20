@@ -15,6 +15,16 @@ public class Area : MonoBehaviour {
 		
 		TileColor[0] = UnityEngine.Color.black;
 
+		reColoring();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+	public void reColoring()
+	{
 		for (int i = 1; i < 7; i++)
 		{
 			int k = Random.Range(1, 12);
@@ -46,13 +56,13 @@ public class Area : MonoBehaviour {
 					break;
 				case 9:
 					TileColor[i] = new UnityEngine.Color(1.0f, 0.0f, 0.75f);
-					ChildHexagon[i].GetComponentInChildren<MeshCollider>().convex = true;
-					ChildHexagon[i].GetComponentInChildren<MeshCollider>().isTrigger = true;
+					//ChildHexagon[i].GetComponentInChildren<MeshCollider>().convex = true;
+					//ChildHexagon[i].GetComponentInChildren<MeshCollider>().isTrigger = true;
 					break;
 				case 10:
 					TileColor[i] = new UnityEngine.Color(0.75f, 0.0f, 1.0f);
-					ChildHexagon[i].GetComponentInChildren<MeshCollider>().convex = true;
-					ChildHexagon[i].GetComponentInChildren<MeshCollider>().isTrigger = true;
+					//ChildHexagon[i].GetComponentInChildren<MeshCollider>().convex = true;
+					//ChildHexagon[i].GetComponentInChildren<MeshCollider>().isTrigger = true;
 					break;
 				case 11:
 					TileColor[i] = new UnityEngine.Color(0.75f, 1.0f, 0.0f);
@@ -63,15 +73,10 @@ public class Area : MonoBehaviour {
 
 			}
 		}
-		
+
 		for (int i = 0; i < 7; i++)
 		{
 			ChildHexagon[i].GetComponentInChildren<Renderer>().material.color = TileColor[i];
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

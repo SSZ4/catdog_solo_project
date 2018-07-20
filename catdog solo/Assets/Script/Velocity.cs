@@ -21,7 +21,7 @@ public class Velocity : MonoBehaviour {
 	public GameObject Buttonl;
 	public GameObject Buttonr;
 	private MeshRenderer Mesh;
-	//GameObject map;
+	GameObject map;
 	// Use this for initialization
 	void Start () { 
 		rigid = gameObject.GetComponent<Rigidbody>();
@@ -32,7 +32,7 @@ public class Velocity : MonoBehaviour {
 		rayui = GameObject.Find("raycastui");
 		raytext = GameObject.Find("raytext");
 		UIManager = GameObject.Find("UIManager");
-		//map = GameObject.Find("World");
+		map = GameObject.Find("World");
 
 		Buttonl = UIManager.GetComponent<Button>().Buttonl;
 		Buttonr = UIManager.GetComponent<Button>().Buttonr;
@@ -41,6 +41,8 @@ public class Velocity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		GameOver();
+
 		RaycastHit hit;
 		if (Physics.Raycast(Shadow.transform.position, -Vector3.up, out hit, 10.0f))
 			RayColor = hit.collider.GetComponent<Renderer>().material.color;
@@ -104,6 +106,13 @@ public class Velocity : MonoBehaviour {
 				{
 					if (UIManager.GetComponent<worldrotation>().Reverse)
 						RotReverseOn();
+				}
+				else if (Rule.IsMagentaSet(or, og, ob)) {
+					int k = map.GetComponentsInChildren<Area>().Length;
+					for(int i=0; i<k; i++)
+					{
+						map.GetComponentsInChildren<Area>()[i].reColoring();
+					}
 				}
 
 
@@ -243,6 +252,12 @@ public class Velocity : MonoBehaviour {
 		return finalVelocity;
 	}
 
+
+
+
+
+
+
 	private void Rotate(int k)
 	{
 		UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
@@ -328,54 +343,10 @@ public class Velocity : MonoBehaviour {
 			UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
 		}
 	}
+
+	private void GameOver()
+	{
+		if(transform.position.y < -5.0f && Time.timeScale == 1.0f)
+			transform.GetComponent<Destination>().GameEnd();
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 언젠가 하자
-		if (Input.GetKey("d"))
-		{
-			transform.Rotate(new Vector3(0.0f, -3.0f, 0.0f), Space.Self);
-			
-			rigid.AddForce(-transform.right * rigid.velocity.x * (1 - Mathf.Sin(87 * Mathf.Deg2Rad)));
-			rigid.AddForce(-transform.forward * rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			
-			//rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, -rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			//rigid.velocity = Vector3.zero;
-			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
-		}
-
-		if (Input.GetKey("a"))
-		{
-			transform.Rotate(new Vector3(0.0f, 3.0f, 0.0f), Space.Self);
-			rigid.velocity = new Vector3(rigid.velocity.x * Mathf.Sin(87 * Mathf.Deg2Rad), rigid.velocity.y, rigid.velocity.x * Mathf.Cos(87 * Mathf.Deg2Rad));
-			//rigid.velocity = Vector3.zero;
-			//rigid.velocity = GetVelocity(transform.position, target_position + new Vector3(-1.0f, 0.0f, 1.0f), 0.0f);
-		}
-*/

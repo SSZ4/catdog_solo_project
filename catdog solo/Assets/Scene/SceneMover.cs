@@ -32,6 +32,7 @@ public class SceneMover : MonoBehaviour {
 
 	public void StarttoMain()
 	{
+		Time.timeScale = 1.0f;
 		SceneManager.LoadScene("Main");
 	}
 
@@ -89,7 +90,7 @@ public class SceneMover : MonoBehaviour {
 	public void GameExit()
 	{
 		Application.Quit();
-		UnityEditor.EditorApplication.isPlaying = false; //에디터로 실행 시 종료
+		//UnityEditor.EditorApplication.isPlaying = false; //에디터로 실행 시 종료
 	}
 	
 	public void ReStart()

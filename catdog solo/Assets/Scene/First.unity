@@ -1076,6 +1076,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChildHexagon: []
   TileColor: []
+--- !u!1 &961347134 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1270706103865798, guid: 4beea5e421a03574ca319f8c39aa1704,
+    type: 2}
+  m_PrefabInternal: {fileID: 989441036}
+--- !u!114 &961347135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 961347134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9443aa03f239c40a33aaf1985343dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &961347136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 961347134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 961347135}
+          m_MethodName: helloWorld
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1001 &974019134
 Prefab:
   m_ObjectHideFlags: 0
@@ -2029,6 +2075,10 @@ Prefab:
     - target: {fileID: 1877149332913250, guid: 82c1e2fd188f74c4e89f84469d53d0bd, type: 2}
       propertyPath: m_TagString
       value: Dest
+      objectReference: {fileID: 0}
+    - target: {fileID: 4317943111229654, guid: 82c1e2fd188f74c4e89f84469d53d0bd, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82c1e2fd188f74c4e89f84469d53d0bd, type: 2}
