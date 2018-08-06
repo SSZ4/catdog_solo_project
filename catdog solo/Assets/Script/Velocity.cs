@@ -42,10 +42,22 @@ public class Velocity : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		GameOver();
+		RayHitting();
+	}
 
+	private void RayHitting()
+	{
 		RaycastHit hit;
 		if (Physics.Raycast(Shadow.transform.position, -Vector3.up, out hit, 10.0f))
 			RayColor = hit.collider.GetComponent<Renderer>().material.color;
+		else if (Physics.Raycast(Shadow.transform.position, Vector3.up, out hit, 10.0f))
+		{
+			RayColor = hit.collider.GetComponent<Renderer>().material.color;
+			Debug.Log(Shadow.transform.position);
+			float x = Shadow.transform.position.x - 1.2848f;
+			float y = Shadow.transform.position.y + 2.0f;
+			Shadow.transform.position = new Vector3(x, y, Shadow.transform.position.z);
+		}
 
 		rayui.GetComponent<Image>().color = RayColor;
 
@@ -53,167 +65,187 @@ public class Velocity : MonoBehaviour {
 		float g = RayColor.g;
 		float b = RayColor.b;
 
-		if (Rule.IsRedSet(r, g, b)) {
+		if (Rule.IsRedSet(r, g, b))
+		{
 			raytext.GetComponent<Text>().text = "Red";
 		}
-		else if (Rule.IsBlueSet(r, g, b)) {
+		else if (Rule.IsBlueSet(r, g, b))
+		{
 			raytext.GetComponent<Text>().text = "Blue";
 		}
-		else if (Rule.IsGreenSet(r, g, b)) {
+		else if (Rule.IsGreenSet(r, g, b))
+		{
 			raytext.GetComponent<Text>().text = "Green";
 		}
-		else if (Rule.IsCyanSet(r, g, b)) {
+		else if (Rule.IsCyanSet(r, g, b))
+		{
 			raytext.GetComponent<Text>().text = "Cyan";
 		}
-		else if (Rule.IsMagentaSet(r, g, b)) {
+		else if (Rule.IsMagentaSet(r, g, b))
+		{
 			raytext.GetComponent<Text>().text = "Magenta";
 		}
-		else if (Rule.IsYellowSet(r, g, b)) {
+		else if (Rule.IsYellowSet(r, g, b))
+		{
 			raytext.GetComponent<Text>().text = "Yellow";
 		}
 		else if (r == 0.0f && g == 0.0f && b == 0.0f)
 		{
 			raytext.GetComponent<Text>().text = "Black";
 		}
-		else {
+		else
+		{
 			raytext.GetComponent<Text>().text = "";
 		}
-
-		//Debug.Log(RayColor);
 	}
 
 	private void OnCollisionEnter(Collision other)
 	{
-
-		if (i == 0.0f)
-		{
-			transform.GetComponent<Velocity>().ShootAngle = 50.0f;
-			or = other.transform.GetComponent<Renderer>().material.color.r;
-			og = other.transform.GetComponent<Renderer>().material.color.g;
-			ob = other.transform.GetComponent<Renderer>().material.color.b;
-			if (or == 0.0f && og == 0.0f && ob == 0.0f) { } // 검은색은 무시
-			else
-			{
-				if (Rule.IsRedSet(or, og, ob))
-					ShootAngle = 30.0f;
-				else if (Rule.IsBlueSet(or, og, ob))
-					ShootAngle = 70.0f;
-				else if (Rule.IsGreenSet(or, og, ob))
-					LeftRightOff();
-				else if (Rule.IsCyanSet(or, og, ob))
-					SphereOff();
-				else if (Rule.IsYellowSet(or, og, ob))
-				{
-					if (UIManager.GetComponent<worldrotation>().Reverse)
-						RotReverseOn();
-				}
-				else if (Rule.IsMagentaSet(or, og, ob)) {
-					int k = map.GetComponentsInChildren<Area>().Length;
-					for(int i=0; i<k; i++)
-					{
-						map.GetComponentsInChildren<Area>()[i].reColoring();
-					}
-				}
-
-
-
-				//other.transform.GetComponent<Renderer>().material.color = UnityEngine.Color.black;
-			}
-		}
-
-		if (other.transform.tag == "Plane")
-		{		
-			if (i == 0.0f)
-			{	
-				rigid.velocity = Vector3.zero;
-				target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
-
-				Shadow.transform.position = target_position;
-				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
-
-				i = 1.0f;
-			}
-		}
-
-		if (other.transform.tag == "CirclePlane")
+		float height = other.transform.position.y + 1.6f;
+		if (transform.position.y > height)
 		{
 			if (i == 0.0f)
 			{
-				rigid.velocity = Vector3.zero;
-				target_position = new Vector3(gameObject.transform.position.x + 22.8f, gameObject.transform.position.y, gameObject.transform.position.z);
-
-				Shadow.transform.position = target_position;
-				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
-
-				i = 1.0f;
-			}
-		}
-
-		if (other.transform.tag == "SquarePlane")
-		{
-			if (i == 0.0f)
-			{
-				rigid.velocity = Vector3.zero;
-				target_position = new Vector3(gameObject.transform.position.x - 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
-
-				Shadow.transform.position = target_position;
-				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
-
-				i = 1.0f;
-			}
-		}
-
-		if (other.transform.tag == "StarPlane")
-		{
-			if (i == 0.0f)
-			{
-				rigid.velocity = Vector3.zero;
-				target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
-
-				Shadow.transform.position = target_position;
-				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
-
-				int k = 0;
-				while (k == 0)
-				{
-					k = Random.Range(-2, 2);
-				}
-				
-
-				Debug.Log(k);
-				if(k > 0)
-				{
-					Rotate(k);
-				}
+				transform.GetComponent<Velocity>().ShootAngle = 50.0f;
+				or = other.transform.GetComponent<Renderer>().material.color.r;
+				og = other.transform.GetComponent<Renderer>().material.color.g;
+				ob = other.transform.GetComponent<Renderer>().material.color.b;
+				if (or == 0.0f && og == 0.0f && ob == 0.0f) { } // 검은색은 무시
 				else
 				{
-					RotateMinus(k);
-				}
+					if (Rule.IsRedSet(or, og, ob))
+						ShootAngle = 30.0f;
+					else if (Rule.IsBlueSet(or, og, ob))
+						ShootAngle = 70.0f;
+					else if (Rule.IsGreenSet(or, og, ob))
+						LeftRightOff();
+					else if (Rule.IsCyanSet(or, og, ob))
+						SphereOff();
+					else if (Rule.IsYellowSet(or, og, ob))
+					{
+						if (UIManager.GetComponent<worldrotation>().Reverse)
+							RotReverseOn();
+					}
+					else if (Rule.IsMagentaSet(or, og, ob))
+					{
+						int k = map.GetComponentsInChildren<Area>().Length;
+						for (int i = 0; i < k; i++)
+						{
+							map.GetComponentsInChildren<Area>()[i].reColoring();
+						}
+					}
 
+
+
+					//other.transform.GetComponent<Renderer>().material.color = UnityEngine.Color.black;
+				}
+			}
+
+			if (other.transform.tag == "Plane")
+			{
+				if (i == 0.0f)
+				{
+					rigid.velocity = Vector3.zero;
+					target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+					Shadow.transform.position = target_position;
+					rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+
+					i = 1.0f;
+				}
+			}
+
+			if (other.transform.tag == "CirclePlane")
+			{
+				if (i == 0.0f)
+				{
+					rigid.velocity = Vector3.zero;
+					target_position = new Vector3(gameObject.transform.position.x + 22.8f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+					Shadow.transform.position = target_position;
+					rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+
+					i = 1.0f;
+				}
+			}
+
+			if (other.transform.tag == "SquarePlane")
+			{
+				if (i == 0.0f)
+				{
+					rigid.velocity = Vector3.zero;
+					target_position = new Vector3(gameObject.transform.position.x - 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+					Shadow.transform.position = target_position;
+					rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+
+					i = 1.0f;
+				}
+			}
+
+			if (other.transform.tag == "StarPlane")
+			{
+				if (i == 0.0f)
+				{
+					rigid.velocity = Vector3.zero;
+					target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+					Shadow.transform.position = target_position;
+					rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+
+					float k = 0;
+					k = Random.Range(1.0f, 2.0f);
+
+					int j = 0;
+					while (j == 0)
+						j = Random.Range(-1, 1);
+
+					k *= j;
+
+					Debug.Log(k);
+					if (k > 0)
+					{
+						Rotate(k);
+					}
+					else
+					{
+						RotateMinus(k);
+					}
+
+					i = 1.0f;
+				}
+			}
+
+			if (other.transform.tag == "TriPlane")
+			{
+				if (i == 0.0f)
+				{
+					rigid.velocity = Vector3.zero;
+					target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
+
+					Debug.Log(target_position.x + " " + target_position.y + " " + target_position.z);
+
+					Shadow.transform.position = target_position;
+					Vector3 pos = target_position;
+					pos.x -= 2.28f;
+					pos.y += 4.0f;
+					gameObject.transform.position = pos;
+					rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+				}
 				i = 1.0f;
 			}
 		}
-
-		if (other.transform.tag == "TriPlane")
+		else
 		{
-			rigid.velocity = Vector3.zero;
-			target_position = new Vector3(gameObject.transform.position.x + 11.4f, gameObject.transform.position.y, gameObject.transform.position.z);
+			if (i == 0.0f)
+			{
+				rigid.velocity = Vector3.zero;
+				target_position = new Vector3(gameObject.transform.position.x - 2.5f, other.transform.position.y - 0.3f, gameObject.transform.position.z);
 
-			Debug.Log(target_position.x + " " + target_position.y + " " + target_position.z);
-
-			Shadow.transform.position = target_position;
-			Vector3 pos = target_position;
-			pos.x -= 2.28f;
-			pos.y += 4.0f;
-			gameObject.transform.position = pos;
-			rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
-
-
-			/*
-			Vector3 pos = target_position;
-			pos.y += 3.0f;
-			transform.position = pos;
-			*/
+				Shadow.transform.position = target_position;
+				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+			}
+			i = 1.0f;
 		}
 
 	}
@@ -237,16 +269,11 @@ public class Velocity : MonoBehaviour {
 
 		float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt((0.5f * gravity * Mathf.Pow(distance, 2)) / (distance * Mathf.Tan(angle) + yOffset));
 		Vector3 velocity = new Vector3(initialVelocity * Mathf.Cos(angle), initialVelocity * Mathf.Sin(angle), 0.0f);
-		//Vector3 velocity = new Vector3(0f, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
 
-		//Debug.Log(Vector3.Angle(transform.right, planarTarget - planarPosition));
 		float angleBetweenObjects = Vector3.Angle(transform.right, planarTarget - planarPosition) * (targetPos.x > currentPos.x ? 1 : -1);
 
-		//Debug.Log(angleBetweenObjects);
 
 		Vector3 finalVelocity = Quaternion.AngleAxis(angleBetweenObjects, transform.up) * velocity;
-		//Debug.Log(velocity);
-		//Debug.Log(finalVelocity);
 		finalVelocity = transform.InverseTransformVector(finalVelocity); // 자신의 각도 참조
 		
 		return finalVelocity;
@@ -258,7 +285,7 @@ public class Velocity : MonoBehaviour {
 
 
 
-	private void Rotate(int k)
+	private void Rotate(float k)
 	{
 		UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
 		Invoke("RotateStop", k);
@@ -269,7 +296,7 @@ public class Velocity : MonoBehaviour {
 		UIManager.GetComponent<worldrotation>().IsPressedLeft = false;
 	}
 
-	private void RotateMinus(int k)
+	private void RotateMinus(float k)
 	{
 		UIManager.GetComponent<worldrotation>().IsPressedRight = true;
 		Invoke("RotateMinusStop", -k);
