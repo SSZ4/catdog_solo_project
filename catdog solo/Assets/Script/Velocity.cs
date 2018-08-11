@@ -235,7 +235,7 @@ public class Velocity : MonoBehaviour {
 				i = 1.0f;
 			}
 		}
-		else
+		else // 옆면 충돌처리
 		{
 			if (i == 0.0f)
 			{
@@ -244,6 +244,7 @@ public class Velocity : MonoBehaviour {
 
 				Shadow.transform.position = target_position;
 				rigid.velocity = GetVelocity(gameObject.transform.position, target_position, ShootAngle);
+
 			}
 			i = 1.0f;
 		}
