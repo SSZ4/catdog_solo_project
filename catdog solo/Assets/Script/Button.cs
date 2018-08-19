@@ -23,9 +23,10 @@ public class Button : MonoBehaviour {
 			ButtonR = GameObject.Find("ReStart");
 			ButtonR.SetActive(false);
 		}
-		if (null != GameObject.Find("Continue")) { 
-		ButtonC = GameObject.Find("Continue");
-		ButtonC.SetActive(false);
+		if (null != GameObject.Find("Continue"))
+		{ 
+			ButtonC = GameObject.Find("Continue");
+			ButtonC.SetActive(false);
 		}
 
 		Buttonl = GameObject.Find("left");

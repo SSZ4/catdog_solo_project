@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class Velocity : MonoBehaviour {
@@ -21,6 +22,8 @@ public class Velocity : MonoBehaviour {
 	public GameObject Buttonl;
 	public GameObject Buttonr;
 	private MeshRenderer Mesh;
+	private bool roton;
+	private bool rotminuson;
 	GameObject map;
 	// Use this for initialization
 	void Start () { 
@@ -37,12 +40,29 @@ public class Velocity : MonoBehaviour {
 		Buttonl = UIManager.GetComponent<Button>().Buttonl;
 		Buttonr = UIManager.GetComponent<Button>().Buttonr;
 		Mesh = transform.GetComponent<MeshRenderer>();
+
+		roton = false;
+		rotminuson = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		GameOver();
+		if (SceneManager.GetActiveScene().name != "Tutorial2")
+			GameOver();
+		else
+			TutoEnd();
+
 		RayHitting();
+
+		if (roton)
+		{
+			UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
+		}
+
+		if (rotminuson)
+		{
+			UIManager.GetComponent<worldrotation>().IsPressedRight = true;
+		}
 	}
 
 	private void RayHitting()
@@ -53,7 +73,6 @@ public class Velocity : MonoBehaviour {
 		else if (Physics.Raycast(Shadow.transform.position, Vector3.up, out hit, 10.0f))
 		{
 			RayColor = hit.collider.GetComponent<Renderer>().material.color;
-			Debug.Log(Shadow.transform.position);
 			float x = Shadow.transform.position.x - 1.2848f;
 			float y = Shadow.transform.position.y + 2.0f;
 			Shadow.transform.position = new Vector3(x, y, Shadow.transform.position.z);
@@ -198,11 +217,11 @@ public class Velocity : MonoBehaviour {
 
 					int j = 0;
 					while (j == 0)
-						j = Random.Range(-1, 1);
+						j = Random.Range(-1, 2);
 
-					k *= j;
+					k = k*j;
 
-					Debug.Log(k);
+					Debug.Log(j);
 					if (k > 0)
 					{
 						Rotate(k);
@@ -288,24 +307,30 @@ public class Velocity : MonoBehaviour {
 
 	private void Rotate(float k)
 	{
-		UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
+		roton = true;
 		Invoke("RotateStop", k);
 	}
 
 	private void RotateStop()
 	{
+		roton = false;
+		rotminuson = false;
+		UIManager.GetComponent<worldrotation>().IsPressedRight = false;
 		UIManager.GetComponent<worldrotation>().IsPressedLeft = false;
 	}
 
 	private void RotateMinus(float k)
 	{
-		UIManager.GetComponent<worldrotation>().IsPressedRight = true;
+		rotminuson = true;
 		Invoke("RotateMinusStop", -k);
 	}
 
 	private void RotateMinusStop()
 	{
+		roton = false;
+		rotminuson = false;
 		UIManager.GetComponent<worldrotation>().IsPressedRight = false;
+		UIManager.GetComponent<worldrotation>().IsPressedLeft = false;
 	}
 
 	private void LeftRightOff()
@@ -350,6 +375,19 @@ public class Velocity : MonoBehaviour {
 			UIManager.GetComponent<worldrotation>().IsPressedLeft = true;
 		}
 
+		if (roton)
+		{
+			roton = false;
+			rotminuson = true;
+		}
+
+		if (rotminuson)
+		{
+			roton = true;
+			rotminuson = false;
+		}
+
+
 		UIManager.GetComponent<worldrotation>().Reverse = false;
 
 		Invoke("RotReverseOff", 1.5f);
@@ -363,7 +401,6 @@ public class Velocity : MonoBehaviour {
 		{
 			UIManager.GetComponent<worldrotation>().IsPressedLeft = false;
 			UIManager.GetComponent<worldrotation>().IsPressedRight = true;
-			//Debug.Log("Enter");
 		}
 		else if (UIManager.GetComponent<worldrotation>().IsPressedRight == true)
 		{
@@ -376,5 +413,16 @@ public class Velocity : MonoBehaviour {
 	{
 		if(transform.position.y < -5.0f && Time.timeScale == 1.0f)
 			transform.GetComponent<Destination>().GameEnd();
+	}
+
+	public void TutoEnd()
+	{
+		if (transform.position.y < -10.0f)
+		{
+			Vector3 pos = GameObject.Find("tile").transform.position;
+			pos.y += 10.0f;
+			transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			transform.transform.position = pos;
+		}
 	}
 }

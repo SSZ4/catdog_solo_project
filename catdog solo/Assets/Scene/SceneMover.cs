@@ -14,7 +14,7 @@ public class SceneMover : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		TutoMove2();
+		
 	}
 
 
@@ -103,16 +103,5 @@ public class SceneMover : MonoBehaviour {
 	{
 		Time.timeScale = 1.0f;
 		SceneManager.LoadScene("Select");
-	}
-
-	private void TutoMove2()
-	{
-		if (SceneManager.GetActiveScene().name == "Tutorial2" && Ball.transform.position.y < -10.0f)
-		{
-			Vector3 pos = GameObject.Find("tile").transform.position;
-			pos.y += 10.0f;
-			Ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-			Ball.transform.position = pos;
-		}
 	}
 }

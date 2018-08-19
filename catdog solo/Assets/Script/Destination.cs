@@ -13,6 +13,7 @@ public class Destination : MonoBehaviour {
 	void Start () {
 
 		ui = GameObject.Find("UIManager");
+
 		ButtonM = ui.GetComponent<Button>().ButtonM;
 		ButtonR = ui.GetComponent<Button>().ButtonR;
 
@@ -64,5 +65,6 @@ public class Destination : MonoBehaviour {
 
 		Time.timeScale = 0.0f;
 	}
+
 
 }

@@ -78,5 +78,7 @@ public class Area : MonoBehaviour {
 		{
 			ChildHexagon[i].GetComponentInChildren<Renderer>().material.color = TileColor[i];
 		}
+
+		ChildHexagon[2].GetComponentInChildren<Renderer>().material.color = new UnityEngine.Color(1.0f, 0.75f, 0.0f);
 	}
 }
