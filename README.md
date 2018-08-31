@@ -10,4 +10,4 @@
 * 각 stage의 clear 여부 file로 관리
 * stage 클리어 시 다음 stage 해금
 * Player 이동 포물선 운동으로 구현
-* Color Picker 구현: Raycast 사용하여 다음 충돌 예상 지점의 rgb color UI로 표시
+* Color Picker 구현: Raycast 사용하여 다음 충돌 예상 지점의 RGB값을 UI로 표시
